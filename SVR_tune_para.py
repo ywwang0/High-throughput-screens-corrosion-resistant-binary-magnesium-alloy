@@ -7,7 +7,7 @@ from sklearn.metrics import mean_squared_error,mean_absolute_error,r2_score
 df = pd.read_excel('../raw.xlsx')
 names = df.columns.to_list()
 df_norm = (df[names]-np.mean(df[names]))/np.std(df[names])
-y = np.array(df_norm['delta_G']).reshape(-1,1)
+y = np.array(df_norm['Eads']).reshape(-1,1)
 
 for features in [['WF']]:
 # for features in [['WF','WFIE','RAM'],['WF','WFIE','RAM','Ee'],['WF','WFIE','RAM','Ee','WEN']]:
@@ -32,7 +32,7 @@ for features in [['WF']]:
                 y_train_pred = model.fit(x_train,y_train.ravel()).predict(x_train)
                 y_test_pred = model.fit(x_train,y_train.ravel()).predict(x_test)
 
-                std = np.std(df['delta_G']); mean = np.mean(df['delta_G'])
+                std = np.std(df['Eads']); mean = np.mean(df['Eads'])
                 r2_train.append(r2_score(y_train*std+mean,y_train_pred*std+mean))
                 r2_test.append(r2_score(y_test*std+mean,y_test_pred*std+mean))
                 mae_test.append(mean_absolute_error(y_test*std+mean,y_test_pred*std+mean))
