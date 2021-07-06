@@ -12,7 +12,7 @@ names = df.columns.to_list()
 
 df_norm = (df[names]-np.mean(df[names]))/np.std(df[names])
 
-y = np.array(df_norm['delta_G']).reshape(-1,1)
+y = np.array(df_norm['Eads']).reshape(-1,1)
 xlist = 'WF'
 x = np.array(df_norm[['WF','d','WEN','RAM']]).reshape(-1,4)
 for k in range(1,10):
@@ -41,7 +41,7 @@ for k in range(1,10):
             
             y_train_pred = model.fit(x_train,y_train.ravel()).predict(x_train)
             y_test_pred = model.fit(x_train,y_train.ravel()).predict(x_test)
-            std = np.std(df['delta_G']); mean = np.mean(df['delta_G'])
+            std = np.std(df['Eads']); mean = np.mean(df['Eads'])
             r2_train.append(r2_score(y_train,y_train_pred))
             r2_test.append(r2_score(y_test,y_test_pred))
             mae_test.append(mean_absolute_error(y_test*std+mean,y_test_pred*std+mean))
